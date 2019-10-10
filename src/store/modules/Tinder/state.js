@@ -1,5 +1,6 @@
 export default () => ({
 	breed: [],
 	status: null,
-	prevBreed: []
+	prevBreed: [],
+	userId: localStorage.getItem('user-id') || null
 })

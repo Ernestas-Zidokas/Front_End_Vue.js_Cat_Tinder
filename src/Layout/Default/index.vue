@@ -1,10 +1,10 @@
 <template>
   <main>
     <Header />
-    <div>
+    <KeepAlive>
       <slot />
-    </div>
-    <Footer />
+    </KeepAlive>
+    <Footer v-if="!this.$route.meta.noFooter" />
   </main>
 </template>
 

@@ -31,6 +31,7 @@ export default {
 	.navigation {
 		display: flex;
 		justify-content: space-evenly;
+		margin: 10px 0px;
 		&__link {
 			display: block;
 			height: 30px;

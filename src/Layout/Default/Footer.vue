@@ -17,7 +17,7 @@
     </div>
     <BaseButton
       class="footer__left-buttons--button"
-      @click="like"
+      @click="saveFavorite"
     >
       ❤️
     </BaseButton>
@@ -27,9 +27,8 @@
 <script>
 import BaseButton from '../../components/BaseButton'
 import { createNamespacedHelpers } from 'vuex'
-import { FETCH_BREED, GET_PREV_BREED } from '../../store/modules/Tinder/action-types'
+import { FETCH_BREED, GET_PREV_BREED, SAVE_FAVORITE } from '../../store/modules/Tinder/action-types'
 import { SET_PREV_BREED } from '../../store/modules/Tinder/mutation-types'
-import { REQUESTING } from '../../store/modules/Tinder/status-types'
 const Tinder = createNamespacedHelpers(
 	'Tinder'
 )
@@ -47,12 +46,10 @@ export default {
 		}
 	},
 	methods: {
-		like () {
-			console.log('like')
-		},
 		...Tinder.mapActions({
 			fetchBreed: FETCH_BREED,
-			getPrevBreed: GET_PREV_BREED
+			getPrevBreed: GET_PREV_BREED,
+			saveFavorite: SAVE_FAVORITE
 		}),
 		...Tinder.mapMutations({
 			setPrevBreed: SET_PREV_BREED

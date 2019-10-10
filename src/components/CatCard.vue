@@ -18,6 +18,7 @@
 </template>
 
 <script>
+
 export default {
 	name: 'CatCard',
 	props: {
@@ -28,7 +29,8 @@ export default {
 	},
 	data () {
 		return {
-			shortText: true
+			shortText: true,
+			isImageLoaded: false
 		}
 	},
 	computed: {
@@ -42,8 +44,12 @@ export default {
 			return `photo of a ${name} cat`
 		}
 	},
-	mounted () {
-		console.log(this.breed)
+	created () {
+		const image = new Image()
+		image.onload = () => {
+			this.isImageLoaded = true
+		}
+		image.src = this.breed.url
 	},
 	methods: {
 		toggleMore () {
@@ -57,18 +63,28 @@ export default {
 	.cat-card {
 		&__img {
 			display: flex;
+			position: relative;
 			height: 400px;
 			background-size: cover;
 			background-repeat: no-repeat;
 			background-position: center;
 			margin: 4px;
 			border-radius: 5px;
+			&:before {
+				content: "";
+				position: absolute;
+				z-index: 0;
+				height: 100%;
+				width: 100%;
+				background: linear-gradient(0deg, #000000cc 0%, #00000000 30%);
+			}
 		}
 
 		&__name {
 			color: #fff;
 			margin: 10px;
 			align-self: flex-end;
+			z-index: 1;
 		}
 
 		&__description {

@@ -4,6 +4,9 @@ export default [
 	{
 		path: '/favorites',
 		name: 'Favorites',
-		component: Favorites
+		component: Favorites,
+		meta: {
+			noFooter: true
+		}
 	}
 ]
