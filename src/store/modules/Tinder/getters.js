@@ -1,3 +1,3 @@
 export default {
-	breed: state => state.breeds[0]
+	breed: state => state.breed[0]
 }

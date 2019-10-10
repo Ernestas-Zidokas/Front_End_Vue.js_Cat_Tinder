@@ -1,9 +1,24 @@
 <template>
   <footer class="footer">
-    <BaseButton class="footer__button">
-      ❌
-    </BaseButton>
-    <BaseButton class="footer__button">
+    <div class="footer__left-buttons">
+      <BaseButton
+        :secondary="true"
+        class="footer__button"
+        @click="getPrevBreed"
+      >
+        ↩️
+      </BaseButton>
+      <BaseButton
+        class="footer__left-buttons--button"
+        @click="dislike"
+      >
+        ❌
+      </BaseButton>
+    </div>
+    <BaseButton
+      class="footer__left-buttons--button"
+      @click="like"
+    >
       ❤️
     </BaseButton>
   </footer>
@@ -11,10 +26,37 @@
 
 <script>
 import BaseButton from '../../components/BaseButton'
+import { createNamespacedHelpers } from 'vuex'
+import { FETCH_BREED, GET_PREV_BREED } from '../../store/modules/Tinder/action-types'
+import { SET_PREV_BREED } from '../../store/modules/Tinder/mutation-types'
+import { REQUESTING } from '../../store/modules/Tinder/status-types'
+const Tinder = createNamespacedHelpers(
+	'Tinder'
+)
 export default {
 	name: 'Footer',
 	components: {
 		BaseButton
+	},
+	computed: {
+		dislike () {
+			return () => {
+				this.setPrevBreed()
+				this.fetchBreed()
+			}
+		}
+	},
+	methods: {
+		like () {
+			console.log('like')
+		},
+		...Tinder.mapActions({
+			fetchBreed: FETCH_BREED,
+			getPrevBreed: GET_PREV_BREED
+		}),
+		...Tinder.mapMutations({
+			setPrevBreed: SET_PREV_BREED
+		})
 	}
 }
 </script>
@@ -23,8 +65,5 @@ export default {
 	.footer {
 		display: flex;
 		justify-content: space-around;
-		&__button {
-			cursor: pointer;
-		}
 	}
 </style>

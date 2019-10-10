@@ -1,6 +1,9 @@
 <template>
   <button
-    class="button"
+    :class="[
+      'button',
+      { 'button--secondary':
+        secondary }]"
     @click="handleClick"
   >
     <slot />
@@ -10,6 +13,12 @@
 <script>
 export default {
 	name: 'BaseButton',
+	props: {
+		secondary: {
+			type: Boolean,
+			default: false
+		}
+	},
 	methods: {
 		handleClick (e) {
 			this.$emit('click', e)
@@ -21,7 +30,6 @@ export default {
 <style lang="scss">
 	.button {
 		-webkit-appearance: none;
-		padding: 0.6rem 1rem;
 		border-radius: 4px;
 		border: 0;
 		text-transform: uppercase;
@@ -41,6 +49,10 @@ export default {
 
 		&:hover {
 			cursor: pointer;
+		}
+
+		&--secondary {
+			font-size: 18px;
 		}
 	}
 </style>

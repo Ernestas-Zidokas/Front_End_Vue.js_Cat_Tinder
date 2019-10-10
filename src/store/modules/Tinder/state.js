@@ -1,4 +1,5 @@
 export default () => ({
-	breeds: [],
-	status: null
+	breed: [],
+	status: null,
+	prevBreed: []
 })

@@ -8,7 +8,7 @@
 <script>
 import CatCard from '../../components/CatCard'
 import { createNamespacedHelpers } from 'vuex'
-import { FETCH_BREEDS } from '../../store/modules/Tinder/action-types'
+import { FETCH_BREED } from '../../store/modules/Tinder/action-types'
 import { REQUESTING } from '../../store/modules/Tinder/status-types'
 const Tinder = createNamespacedHelpers(
 	'Tinder'
@@ -27,11 +27,11 @@ export default {
 		}
 	},
 	created () {
-		this.fetchBreeds()
+		this.fetchBreed()
 	},
 	methods: {
 		...Tinder.mapActions({
-			fetchBreeds: FETCH_BREEDS
+			fetchBreed: FETCH_BREED
 		})
 	}
 
