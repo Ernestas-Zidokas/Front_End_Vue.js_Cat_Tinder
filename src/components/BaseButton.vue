@@ -37,7 +37,7 @@ export default {
 		transition: 0.2s opacity ease;
 		background-color: transparent;
 		font-size: 30px;
-
+		padding: 0;
 		&:focus {
 			outline: 0;
 			opacity: 0.9;

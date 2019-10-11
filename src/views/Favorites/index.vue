@@ -1,34 +1,43 @@
 <template>
   <div class="favorites">
     <h3>Favorites</h3>
-    {{ favorites }}
     <ul class="favorites__list">
-      <!-- <li
+      <li
         v-for="favorite in favorites"
         :key="favorite.id"
         class="favorites__list__item"
       >
         <img
           :src="favorite.url"
-          alt=""
+          :alt="`photo of a ${favorite.breeds[0].name} cat`"
         >
         <h4>{{ favorite.breeds[0].name }}</h4>
         <p class="description">
           {{ favorite.breeds[0].description }}
         </p>
-      </li> -->
+        <BaseButton
+          class="remove-favorite"
+          @click="deleteFavorite(favorite.favorite_id)"
+        >
+          💔
+        </BaseButton>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-import { FETCH_FAVORITES } from '../../store/modules/Favorites/action-types'
+import BaseButton from '../../components/BaseButton'
+import { FETCH_FAVORITES, DELETE_FAVORITE } from '../../store/modules/Favorites/action-types'
 const Favorites = createNamespacedHelpers(
 	'Favorites'
 )
 export default {
 	name: 'Favorites',
+	components: {
+		BaseButton
+	},
 	computed: {
 		...Favorites.mapGetters({
 			favorites: 'favorites'
@@ -39,7 +48,8 @@ export default {
 	},
 	methods: {
 		...Favorites.mapActions({
-			fetchFavorites: FETCH_FAVORITES
+			fetchFavorites: FETCH_FAVORITES,
+			deleteFavorite: DELETE_FAVORITE
 		})
 	}
 }
@@ -55,6 +65,7 @@ export default {
 			padding: 20px;
 
 			&__item {
+				position: relative;
 				display: flex;
 				align-items: center;
 				list-style: none;
@@ -80,5 +91,12 @@ export default {
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 3;
 		overflow: hidden;
+	}
+
+	.remove-favorite {
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-size: 20px;
 	}
 </style>

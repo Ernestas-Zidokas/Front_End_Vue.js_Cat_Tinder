@@ -17,7 +17,7 @@
     </div>
     <BaseButton
       class="footer__left-buttons--button"
-      @click="saveFavorite"
+      @click="like"
     >
       ❤️
     </BaseButton>
@@ -41,6 +41,12 @@ export default {
 		dislike () {
 			return () => {
 				this.setPrevBreed()
+				this.fetchBreed()
+			}
+		},
+		like () {
+			return () => {
+				this.saveFavorite()
 				this.fetchBreed()
 			}
 		}

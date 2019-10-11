@@ -1,10 +1,4 @@
-import {
-	UPDATE_STATUS,
-	SET_BREED,
-	SET_PREV_BREED,
-	SET_USER_ID,
-	SET_FAVORITE
-} from './mutation-types'
+import { UPDATE_STATUS, SET_BREED, SET_PREV_BREED, SET_USER_ID } from './mutation-types'
 
 export default {
 	[SET_BREED] (state, breed) {
