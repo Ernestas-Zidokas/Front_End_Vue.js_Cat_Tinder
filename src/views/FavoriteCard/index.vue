@@ -4,15 +4,16 @@
     class="favorite-card"
   >
     <div
+      v-touch:swipe.left="nextImage"
       class="favorite-card__img"
-      :style="{ backgroundImage: `url(${favorite.url})` }"
+      :style="{ backgroundImage: `url(${image})` }"
     >
       <h3 class="favorite-card__name">
         {{ name }}
       </h3>
     </div>
     <p>{{ description }}</p>
-    <ul>
+    <ul class="favorite-card__list">
       <li>Weight: {{ weight }} kg</li>
       <li>Life span: {{ lifeSpan }} years</li>
       <li>Temparament: {{ temperament }} </li>
@@ -29,8 +30,8 @@
         >
       </li>
     </ul>
-    <ul>
-      Usefull information:
+    <ul class="favorite-card__list">
+      Useful information:
       <li
         v-for="(link, index) in usefullLinks"
         :key="index"
@@ -90,6 +91,9 @@ export default {
 		},
 		temperament () {
 			return this.breeds.temperament
+		},
+		image () {
+			return this.favorite.images[this.photoCount]
 		}
 	},
 	activated () {
@@ -103,6 +107,13 @@ export default {
 				}
 				return star
 			})
+		},
+		nextImage () {
+			if (this.photoCount >= this.favorite.images.length - 1) {
+				this.photoCount = 0
+			} else {
+				this.photoCount++
+			}
 		}
 	}
 }
@@ -134,6 +145,16 @@ export default {
 			margin: 10px;
 			align-self: flex-end;
 			z-index: 1;
+		}
+
+		&__list {
+			li {
+				margin: 4px;
+			}
+		}
+
+		p {
+			margin: 10px 4px;
 		}
 	}
 

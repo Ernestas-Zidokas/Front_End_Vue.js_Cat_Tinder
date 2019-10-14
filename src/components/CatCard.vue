@@ -58,7 +58,7 @@ export default {
 			this.shortText = !this.shortText
 		},
 		nextImage () {
-			if (this.photoCount >= 4) {
+			if (this.photoCount >= this.breed.images.length - 1) {
 				this.photoCount = 0
 			} else {
 				this.photoCount++

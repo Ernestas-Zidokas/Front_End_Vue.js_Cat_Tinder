@@ -17,7 +17,16 @@ export default {
 				const { data: breed } = await axios.get(`/images/${item.image_id}`)
 				breed.favorite_id = item.id
 
-				commit(SET_FAVORITE, breed)
+				const { data: images } = await axios.get('/images/search', {
+					params: { breed_id: breed.breeds[0].id, page: 1, limit: 5 }
+				})
+
+				let info = { ...images[0], images: [] }
+				images.map(({ url }) => {
+					info.images = [...info.images, url]
+				})
+
+				commit(SET_FAVORITE, info)
 			})
 
 			commit(UPDATE_STATUS, DONE)
