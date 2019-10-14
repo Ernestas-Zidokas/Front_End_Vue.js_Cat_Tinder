@@ -1,3 +1,4 @@
 import TinderRoutes from './Tinder'
 import FavoriteRoutes from './Favorites'
-export default [...TinderRoutes, ...FavoriteRoutes]
+import FavoriteCardRoute from './FavoriteCard'
+export default [...TinderRoutes, ...FavoriteRoutes, ...FavoriteCardRoute]

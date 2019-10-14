@@ -1,5 +1,8 @@
 <template>
-  <div class="placeholder" />
+  <div>
+    <div class="placeholder" />
+    <div class="description" />
+  </div>
 </template>
 
 <script>
@@ -23,5 +26,8 @@ export default {
 			width: 100%;
 			background: linear-gradient(0deg, #000000cc 0%, #00000000 30%);
 		}
+	}
+	.description {
+		height: 36px;
 	}
 </style>

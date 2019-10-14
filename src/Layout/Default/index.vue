@@ -1,9 +1,12 @@
 <template>
   <main>
     <Header />
-    <KeepAlive>
+    <KeepAlive v-if="!this.$route.meta.noKeepAlive">
       <slot />
     </KeepAlive>
+    <div v-else>
+      <slot />
+    </div>
     <Footer v-if="!this.$route.meta.noFooter" />
   </main>
 </template>

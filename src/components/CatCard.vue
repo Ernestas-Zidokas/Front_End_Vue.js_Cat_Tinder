@@ -39,9 +39,6 @@ export default {
 		},
 		description () {
 			return this.breed.breeds[0].description
-		},
-		alt () {
-			return `photo of a ${name} cat`
 		}
 	},
 	created () {

@@ -5,22 +5,27 @@
       <li
         v-for="favorite in favorites"
         :key="favorite.id"
-        class="favorites__list__item"
+        class="favorites__list__item--container"
       >
-        <img
-          :src="favorite.url"
-          :alt="`photo of a ${favorite.breeds[0].name} cat`"
+        <RouterLink
+          class="favorites__list__item"
+          :to="{ name: 'FavoriteCard', params: { favorite } }"
         >
-        <h4>{{ favorite.breeds[0].name }}</h4>
-        <p class="description">
-          {{ favorite.breeds[0].description }}
-        </p>
-        <BaseButton
-          class="remove-favorite"
-          @click="deleteFavorite(favorite.favorite_id)"
-        >
-          💔
-        </BaseButton>
+          <img
+            :src="favorite.url"
+            :alt="`photo of a ${favorite.breeds[0].name} cat`"
+          >
+          <h4>{{ favorite.breeds[0].name }}</h4>
+          <p class="description">
+            {{ favorite.breeds[0].description }}
+          </p>
+          <BaseButton
+            class="remove-favorite"
+            @click="deleteFavorite(favorite.favorite_id)"
+          >
+            💔
+          </BaseButton>
+        </RouterLink>
       </li>
     </ul>
   </div>
@@ -68,8 +73,9 @@ export default {
 				position: relative;
 				display: flex;
 				align-items: center;
-				list-style: none;
 				border-bottom: 1px solid grey;
+				text-decoration: none;
+				color: #000;
 				img {
 					width: 80px;
 					min-width: 80px;
@@ -82,6 +88,9 @@ export default {
 				h4,
 				p {
 					margin: 10px;
+				}
+				&--container {
+					list-style: none;
 				}
 			}
 		}
