@@ -1,8 +1,9 @@
 <template>
   <div class="cat-card">
     <div
+      v-touch:swipe.left="nextImage"
       class="cat-card__img"
-      :style="{ backgroundImage: `url(${breed.url})` }"
+      :style="{ backgroundImage: `url(${image})` }"
     >
       <h3 class="cat-card__name">
         {{ name }}
@@ -30,7 +31,8 @@ export default {
 	data () {
 		return {
 			shortText: true,
-			isImageLoaded: false
+			isImageLoaded: false,
+			photoCount: 0
 		}
 	},
 	computed: {
@@ -39,6 +41,9 @@ export default {
 		},
 		description () {
 			return this.breed.breeds[0].description
+		},
+		image () {
+			return this.breed.images[this.photoCount]
 		}
 	},
 	created () {
@@ -51,6 +56,13 @@ export default {
 	methods: {
 		toggleMore () {
 			this.shortText = !this.shortText
+		},
+		nextImage () {
+			if (this.photoCount >= 4) {
+				this.photoCount = 0
+			} else {
+				this.photoCount++
+			}
 		}
 	}
 }

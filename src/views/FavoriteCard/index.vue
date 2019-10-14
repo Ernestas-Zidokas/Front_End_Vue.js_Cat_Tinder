@@ -1,5 +1,8 @@
 <template>
-  <div class="favorite-card">
+  <div
+    v-if="favorite"
+    class="favorite-card"
+  >
     <div
       class="favorite-card__img"
       :style="{ backgroundImage: `url(${favorite.url})` }"
@@ -49,84 +52,48 @@ export default {
 	name: 'FavoriteCard',
 	data () {
 		return {
-			favorite: null
+			favorite: null,
+			photoCount: 0
 		}
 	},
 	computed: {
+		breeds () {
+			return this.favorite.breeds[0]
+		},
 		info () {
 			return [
-				{ title: 'Affection', level: this.starLevel(this.affection) },
-				{ title: 'Child friendly', level: this.starLevel(this.childFriendly) },
-				{ title: 'Dog friendly', level: this.starLevel(this.dogFriendly) },
-				{ title: 'Energy level', level: this.starLevel(this.energyLevel) },
-				{ title: 'Grooming', level: this.starLevel(this.grooming) },
-				{ title: 'Intelligence', level: this.starLevel(this.intelligence) },
-				{ title: 'Shedding level', level: this.starLevel(this.sheddingLevel) },
-				{ title: 'Social needs', level: this.starLevel(this.socialNeeds) },
-				{ title: 'Vocalisation', level: this.starLevel(this.vocalisation) }
+				{ title: 'Affection', level: this.starLevel(this.breeds.affection_level) },
+				{ title: 'Child friendly', level: this.starLevel(this.breeds.child_friendly) },
+				{ title: 'Dog friendly', level: this.starLevel(this.breeds.dog_friendly) },
+				{ title: 'Energy level', level: this.starLevel(this.breeds.energy_level) },
+				{ title: 'Grooming', level: this.starLevel(this.breeds.grooming) },
+				{ title: 'Intelligence', level: this.starLevel(this.breeds.intelligence) },
+				{ title: 'Shedding level', level: this.starLevel(this.breeds.shedding_level) },
+				{ title: 'Social needs', level: this.starLevel(this.breeds.social_needs) },
+				{ title: 'Vocalisation', level: this.starLevel(this.breeds.vocalisation) }
 			]
 		},
 		usefullLinks () {
-			return [this.vetstreet, this.vcahospitals, this.wikipedia]
+			return [this.breeds.vetstreet_url, this.breeds.vcahospitals_url, this.breeds.wikipedia_url].filter(link => link)
 		},
 		name () {
-			return this.favorite.breeds[0].name
+			return this.breeds.name
 		},
 		description () {
-			return this.favorite.breeds[0].description
+			return this.breeds.description
 		},
 		weight () {
-			return this.favorite.breeds[0].weight.metric
+			return this.breeds.weight.metric
 		},
 		lifeSpan () {
-			return this.favorite.breeds[0].life_span
+			return this.breeds.life_span
 		},
 		temperament () {
-			return this.favorite.breeds[0].temperament
-		},
-		affection () {
-			return this.favorite.breeds[0].affection_level
-		},
-		childFriendly () {
-			return this.favorite.breeds[0].child_friendly
-		},
-		dogFriendly () {
-			return this.favorite.breeds[0].dog_friendly
-		},
-		energyLevel () {
-			return this.favorite.breeds[0].energy_level
-		},
-		grooming () {
-			return this.favorite.breeds[0].grooming
-		},
-		intelligence () {
-			return this.favorite.breeds[0].intelligence
-		},
-		sheddingLevel () {
-			return this.favorite.breeds[0].shedding_level
-		},
-		socialNeeds () {
-			return this.favorite.breeds[0].social_needs
-		},
-		vocalisation () {
-			return this.favorite.breeds[0].vocalisation
-		},
-		vcahospitals () {
-			return this.favorite.breeds[0].vcahospitals_url
-		},
-		vetstreet () {
-			return this.favorite.breeds[0].vetstreet_url
-		},
-		wikipedia () {
-			return this.favorite.breeds[0].wikipedia_url
+			return this.breeds.temperament
 		}
-
 	},
-	created () {
+	activated () {
 		this.favorite = this.$route.params.favorite
-	},
-	mounted () {
-		console.log(this.favorite)
 	},
 	methods: {
 		starLevel (level) {

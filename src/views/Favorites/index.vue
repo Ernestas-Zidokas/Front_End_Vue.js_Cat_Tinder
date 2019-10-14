@@ -1,5 +1,8 @@
 <template>
-  <div class="favorites">
+  <div
+    v-if="favorites.length"
+    class="favorites"
+  >
     <h3>Favorites</h3>
     <ul class="favorites__list">
       <li
@@ -19,21 +22,23 @@
           <p class="description">
             {{ favorite.breeds[0].description }}
           </p>
-          <BaseButton
-            class="remove-favorite"
-            @click="deleteFavorite(favorite.favorite_id)"
-          >
-            💔
-          </BaseButton>
         </RouterLink>
+        <BaseButton
+          class="remove-favorite"
+          @click="deleteFavorite(favorite.favorite_id)"
+        >
+          💔
+        </BaseButton>
       </li>
     </ul>
   </div>
+  <LoaderSpinner v-else />
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
 import BaseButton from '../../components/BaseButton'
+import LoaderSpinner from '../../components/LoaderSpinner'
 import { FETCH_FAVORITES, DELETE_FAVORITE } from '../../store/modules/Favorites/action-types'
 const Favorites = createNamespacedHelpers(
 	'Favorites'
@@ -41,7 +46,8 @@ const Favorites = createNamespacedHelpers(
 export default {
 	name: 'Favorites',
 	components: {
-		BaseButton
+		BaseButton,
+		LoaderSpinner
 	},
 	computed: {
 		...Favorites.mapGetters({
@@ -70,7 +76,6 @@ export default {
 			padding: 20px;
 
 			&__item {
-				position: relative;
 				display: flex;
 				align-items: center;
 				border-bottom: 1px solid grey;
@@ -91,6 +96,7 @@ export default {
 				}
 				&--container {
 					list-style: none;
+					position: relative;
 				}
 			}
 		}

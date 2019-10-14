@@ -15,10 +15,15 @@ export default {
 			})
 
 			const { data: breed } = await axios.get('/images/search', {
-				params: { breed_id: data[0].id }
+				params: { breed_id: data[0].id, page: 1, limit: 5 }
 			})
 
-			commit(SET_BREED, breed)
+			let info = [{ ...breed[0], images: [] }]
+			breed.map(({ url }) => {
+				info[0].images = [...info[0].images, url]
+			})
+
+			commit(SET_BREED, info)
 			commit(UPDATE_STATUS, DONE)
 		} catch (error) {
 			commit(UPDATE_STATUS, ERROR)
