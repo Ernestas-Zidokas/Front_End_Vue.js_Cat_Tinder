@@ -7,8 +7,8 @@ import { SET_FAVORITE } from '../Favorites/mutation-types'
 export default {
 	async [FETCH_BREED] ({ commit }) {
 		const randomNr = Math.floor(Math.random() * (67 - 1) + 1)
-
 		commit(UPDATE_STATUS, REQUESTING)
+
 		try {
 			const { data } = await axios.get('/breeds', {
 				params: { page: randomNr, limit: 1 }
@@ -44,8 +44,8 @@ export default {
 				image_id: id,
 				sub_id: state.userId
 			})
-
 			state.breed[0].favorite_id = data.id
+
 			commit(`Favorites/${SET_FAVORITE}`, state.breed[0], { root: true })
 		} catch (error) {
 			commit(UPDATE_STATUS, ERROR)

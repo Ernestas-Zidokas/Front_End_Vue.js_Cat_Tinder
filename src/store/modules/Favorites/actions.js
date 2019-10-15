@@ -6,8 +6,8 @@ import { SET_FAVORITE, UPDATE_STATUS, REMOVE_FROM_FAVORITES } from './mutation-t
 export default {
 	async [FETCH_FAVORITES] ({ commit, rootState }) {
 		let userId = rootState.Tinder.userId
-
 		commit(UPDATE_STATUS, REQUESTING)
+
 		try {
 			const { data } = await axios.get('/favourites', {
 				params: { sub_id: userId }
@@ -15,13 +15,12 @@ export default {
 
 			data.forEach(async item => {
 				const { data: breed } = await axios.get(`/images/${item.image_id}`)
-				breed.favorite_id = item.id
 
 				const { data: images } = await axios.get('/images/search', {
 					params: { breed_id: breed.breeds[0].id, page: 1, limit: 5 }
 				})
 
-				let info = { ...images[0], images: [] }
+				let info = { ...images[0], images: [], favorite_id: item.id }
 				images.map(({ url }) => {
 					info.images = [...info.images, url]
 				})
@@ -36,6 +35,7 @@ export default {
 	},
 	async [DELETE_FAVORITE] ({ commit }, id) {
 		commit(UPDATE_STATUS, REQUESTING)
+
 		try {
 			await axios.delete(`/favourites/${id}`)
 
